@@ -1,0 +1,41 @@
+<!-- Code referenced from SER 421 github repo -->
+
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+Copyright (c) 2018 by SaraVieira (http://jsbin.com/zarakid/14/edit)
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+
+<head>
+    <title>Joke Generator</title>
+</head>
+
+<body>
+    <!-- from https://code.sololearn.com/W4r11y3o0534/#html -->
+    <h1>Random Joke Generator</h1>
+    <div><span style="font-size:25px">
+            <div id="jokeDisplay"></div>
+            <button onclick="newJoke()">New Joke</button>
+</body>
+
+<script>
+    function newJoke() {
+        fetch('https://b89iif31cb.execute-api.us-west-2.amazonaws.com/simple_fetch_test', {
+            method: "GET"
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                document.getElementById('jokeDisplay').innerHTML = data.body;
+            }).catch(function (error) {
+                document.getElementById('response').innerHTML = "Error occured"
+                console.log(error);
+            });
+    }
+</script>
+
+</html>

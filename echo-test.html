@@ -1,0 +1,36 @@
+<!-- Code referenced from SER 421 github repo -->
+<html>
+
+<head>
+    <title>Echo Test</title>
+</head>
+
+<body>
+    <div id="response"></div>
+    <p>
+        Echo this string: <input type="text" id="nameparam" name="name" required /><br />
+        <input type="submit" name="submit" onClick="echoString()" /><br />
+    </p>
+</body>
+<script>
+    function echoString() {
+        let nameStr = document.getElementById('nameparam').value;
+        fetch('https://evwgx2aag2.execute-api.us-west-2.amazonaws.com/echo-api-test', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: nameStr })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.body)
+                document.getElementById('response').innerHTML = JSON.parse(data.body).message;
+            }).catch(function (error) {
+                document.getElementById('response').innerHTML = "Error occured"
+                console.log(error);
+            });
+    }
+</script>
+
+</html>
